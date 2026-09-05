@@ -52,11 +52,25 @@ trait Widget {
 ## CSS subset (v1)
 
 **Supported:** selectors (tag, `.class`, descendant, `:hover`); `display: flex`
-(row/column); box model (margin/padding/gap); `background` (`rgba`); `border-radius`;
-`position: absolute` overlays; `color`; `font-family` / `font-size` / `font-weight`
-(400/600) / `letter-spacing`; px/% units; `filter: blur() brightness() saturate()`;
+(row/column); box model (margin/padding/gap); explicit sizing `width`/`height` +
+`min`/`max-width`/`height` (px, content-box per CSS default box-sizing);
+`background` (`rgba`); `border-radius`; `position: absolute` overlays; `color`;
+`font-family` / `font-size` / `font-weight` (400/600) / `letter-spacing`; px/%
+units; `filter: blur() brightness() saturate()`;
 `backdrop-filter: blur() brightness() saturate()` (blurs in-layer content behind an
 element).
+
+**Bar strip height:** CSS-owned, not config. The window/AppBar strip is
+*content-driven*: it sizes to what the bar needs — largest island outer height —
+floored by `bar { min-height: … }` and capped/overridden by
+`bar { height: … }` (or `html { … }`, the root alias); unstyled it stays at the
+engine default 38px. `background` fills the padding box, so a pill matches the
+sized box.
+
+**Inheritance:** `color`, `font-family`, `font-size`, `font-weight`, `letter-spacing`
+are inherited from the parent's computed style (the box model, backgrounds, filters
+and alignment are not). The root element doubles as the CSS `<html>` document root,
+so `html { font-size: … }` sets the bar-wide default for every unstyled descendant.
 
 **Deferred:** grid, pseudo-elements, `@media`, full selector combinators, box-shadow,
 `transition`, `@keyframes` + `animation`, `transform`, `opacity` property.
@@ -65,10 +79,11 @@ element).
 
 ```toml
 [bar]
-position = "top"          # top | bottom
-height = 48
+position = "top"          # top | bottom (window edge — shell config)
 backdrop = "mica"         # mica | acrylic | none
-islands = true            # per-widget styling vs full-width bar
+
+# Styling is NOT config: the strip height is CSS — bar { height: 48px } —
+# and widget look comes from style.css / style-dark.css.
 
 [[widget]]
 type = "active_window"
@@ -110,8 +125,8 @@ style = "vd.css"
 - [x] Flexbox layout engine (row/column, gap, align/justify) + `position: absolute` overlays filling the parent content box
 - [x] Direct2D text (DirectWrite: family/weight/size, grayscale AA, letter-spacing), rounded rects, translucent `rgba` backgrounds
 - [x] Per-element filters (software): `filter: blur/brightness/saturate` and `backdrop-filter` on in-layer content; GPU/DComp versions pending (Phase 8)
-- [ ] Render tree diffing so widget updates don't redraw the whole bar
-- [ ] Hit testing + mouse events (hover → `:hover` re-cascade)
+- [x] Render tree diffing so widget updates don't repaint the whole bar: frames keep their widget subtrees/layout; the diff flags only widgets whose content, hover state, or laid geometry changed, and those are erased and re-rasterized in place on a retained surface (unchanged widgets cost nothing; ULW still uploads the whole window)
+- [x] Hit testing + mouse events: pointer → deepest painted box (`layout::hit`, child-index paths double as the `:hover` chain); `WM_MOUSEMOVE`/`WM_MOUSELEAVE` set the hover state and re-cascade `:hover` styles via a bounded layout→hit-test→re-apply loop
 
 ### Phase 4 — Widget framework + Clock
 

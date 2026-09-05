@@ -20,6 +20,12 @@ bar {
     padding: 4px 10px;
 }
 
+/* Pointer hover (Phase 3): the bar tracks which element is under the cursor
+   and re-cascades :hover rules, so the pill brightens while hovered. */
+.island:hover {
+    background: rgba(255, 255, 255, 0.20);
+}
+
 label {
     color: #e8e8e8;
     font-size: 13px;

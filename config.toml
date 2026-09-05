@@ -1,7 +1,13 @@
+# basetak configuration — *shell* concerns only. Styling (colors, fonts,
+# paddings, and the strip height) lives in the CSS theme files: style.css
+# (light) / style-dark.css (dark). Set the bar's height there, e.g.
+#     bar { height: 56px; }
+# (engine fallback when unstyled: 38px). This file only decides where/how the
+# strip exists, not how it looks.
+
 [bar]
 position = "top"          # top | bottom
-height = 38
-backdrop = "acrylic"         # mica | acrylic | none
+backdrop = "none"      # mica | acrylic | none
 
 # Widgets, rendered left-to-right in the bar. Each [[widget]] becomes a span
 # carrying `class` (space-separated) — style those classes in style.css (light

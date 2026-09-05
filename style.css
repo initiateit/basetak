@@ -6,24 +6,37 @@
  * this sheet styles dark-on-light content. The dark-theme twin is
  * style-dark.css, loaded automatically when the system theme is dark.
  */
+html {
+    font-size: 16px;
+}
 
 bar {
     display: flex;
+    background:rgba(255,255,255,0);
     flex-direction: row;
     align-items: center;
     gap: 10px;
     padding: 0px 10px;
+    min-height:38px;
 }
 
 .island {
-    background: rgba(0, 0, 0, 0);
-    border-radius: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    height:38px;
     padding: 4px 10px;
+}
+
+/* Pointer hover (Phase 3): the bar tracks which element is under the cursor
+   and re-cascades :hover rules. In the light theme the island background is
+   transparent, and layered-window hit-testing only routes the mouse over
+   painted pixels, so the highlight follows the text/icon content. */
+.island:hover {
+    background: rgba(0, 0, 0, 0.10);
 }
 
 label {
     color: #2b2b2b;
-    font-size: 13px;
 }
 
 /* Clock: the widget emits a `.time` and (when configured) a `.date` label —
@@ -35,7 +48,6 @@ label {
 .clock label.time {
     font-family: "Segoe UI";
     font-weight: 600;
-    font-size: 16.667px;
     color: #111111;
 }
 
@@ -43,34 +55,5 @@ label {
     letter-spacing:0.25px;
     font-family: "Segoe UI";
     font-weight: 600;
-    font-size: 16.667px;
     color: #111111;
-}
-
-/* Media chip demo: colored "album art" with an absolutely-positioned glass
-   overlay whose backdrop-filter blurs the art beneath it. */
-.media {
-    align-items: center;
-    justify-content: center;
-}
-
-.art {
-    background: rgba(214, 74, 118, 0.9);
-    border-radius: 7px;
-    padding: 3px 12px;
-}
-
-.glass {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(8px) saturate(1.25);
-    border-radius: 7px;
-}
-
-.glass label {
-    color: #2b2b2b;
-    font-weight: 600;
 }
