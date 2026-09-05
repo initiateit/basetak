@@ -1,0 +1,76 @@
+/* basetak bar stylesheet — light theme (default).
+ *
+ * The bar is a layered, per-pixel-alpha window: `backdrop = acrylic` and
+ * `mica` blur and tint the desktop behind it (DWM accent; mica uses a heavier
+ * tint), `none` is fully transparent. In light mode those tints are light, so
+ * this sheet styles dark-on-light content. The dark-theme twin is
+ * style-dark.css, loaded automatically when the system theme is dark.
+ */
+
+bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 10px;
+}
+
+.island {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+
+label {
+    color: #2b2b2b;
+    font-size: 13px;
+}
+
+/* Clock: the widget emits a `.time` and (when configured) a `.date` label —
+   style each independently. Spacing between them is `gap` on the widget. */
+.clock {
+    gap: 8px;
+}
+
+.clock label.time {
+    font-family: "Segoe UI";
+    font-weight: 600;
+    font-size: 16.667px;
+    color: #111111;
+}
+
+.clock label.date {
+    letter-spacing:0.25px;
+    font-family: "Segoe UI";
+    font-weight: 600;
+    font-size: 16.667px;
+    color: #111111;
+}
+
+/* Media chip demo: colored "album art" with an absolutely-positioned glass
+   overlay whose backdrop-filter blurs the art beneath it. */
+.media {
+    align-items: center;
+    justify-content: center;
+}
+
+.art {
+    background: rgba(214, 74, 118, 0.9);
+    border-radius: 7px;
+    padding: 3px 12px;
+}
+
+.glass {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(8px) saturate(1.25);
+    border-radius: 7px;
+}
+
+.glass label {
+    color: #2b2b2b;
+    font-weight: 600;
+}

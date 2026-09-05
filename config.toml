@@ -1,0 +1,30 @@
+[bar]
+position = "top"          # top | bottom
+height = 38
+backdrop = "acrylic"         # mica | acrylic | none
+
+# Widgets, rendered left-to-right in the bar. Each [[widget]] becomes a span
+# carrying `class` (space-separated) — style those classes in style.css (light
+# theme) / style-dark.css (dark theme). Supported kinds:
+#   text  — a static label showing `text`
+#   clock — a live local-time label rendered as two child elements:
+#           label.time and (when date_format is set) label.date, so CSS can
+#           style each independently, e.g.
+#             .clock .time { font-weight: 600 }
+#             .clock .date { font-size: 11px; color: ... }
+#           (space between them: .clock { gap: 8px })
+#           Formats are strftime-style: %Y %y %m %d %e %j %H %I %M %S %p
+#           %a %A %b %B, %% = literal %.
+#   media — demo chip: "album art" + glass overlay (backdrop-filter demo)
+#
+# Comment out a widget to remove it, or add your own, e.g.
+#   [[widget]]
+#   class = "island weather"
+#   kind = "text"
+#   text = "22°"
+
+[[widget]]
+class = "island clock"
+kind = "clock"
+time_format = "%I:%M %p"
+date_format = "%A, %d %B"       # empty = time only

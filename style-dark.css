@@ -1,0 +1,69 @@
+/* basetak bar stylesheet — dark theme.
+ *
+ * Loaded instead of style.css when the system theme is dark: the accent
+ * tints (acrylic/mica) are then dark blurs, so content is light-on-dark.
+ * Keep palette changes mirrored between the two files; structural rules live
+ * in both for now (no @media support in the CSS engine yet).
+ */
+
+bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 10px;
+}
+
+.island {
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 8px;
+    padding: 4px 10px;
+}
+
+label {
+    color: #e8e8e8;
+    font-size: 13px;
+}
+
+/* Clock: the widget emits a `.time` and (when configured) a `.date` label —
+   style each independently. Spacing between them is `gap` on the widget. */
+.clock {
+    gap: 8px;
+}
+
+.clock label.time {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.clock label.date {
+    color: #a8a8a8;
+}
+
+/* Media chip demo: colored "album art" with an absolutely-positioned glass
+   overlay whose backdrop-filter blurs the art beneath it. */
+.media {
+    align-items: center;
+    justify-content: center;
+}
+
+.art {
+    background: rgba(214, 74, 118, 0.9);
+    border-radius: 7px;
+    padding: 3px 12px;
+}
+
+.glass {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px) saturate(1.25);
+    border-radius: 7px;
+}
+
+.glass label {
+    color: #f4f2ff;
+    font-weight: 600;
+}
